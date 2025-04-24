@@ -1,0 +1,34 @@
+version: 2
+
+metrics:
+  - name: table_row_count
+    label: Table Row Count
+    model: ref('table_metadata_snapshot')
+    description: "The number of rows in each table"
+    
+    calculation_method: average
+    expression: row_count
+    
+    timestamp: snapshot_timestamp
+    time_grains: [day, week, month]
+    
+    dimensions:
+      - table_name
+      - schema_name
+      - database_name
+
+  - name: table_size_bytes
+    label: Table Size in Bytes
+    model: ref('table_metadata_snapshot')
+    description: "The size of each table in bytes"
+    
+    calculation_method: average
+    expression: size_bytes
+    
+    timestamp: snapshot_timestamp
+    time_grains: [day, week, month]
+    
+    dimensions:
+      - table_name
+      - schema_name
+      - database_name
